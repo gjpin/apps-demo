@@ -11,6 +11,9 @@ const generateTraceparent = () => {
 
     const header = `${version}-${traceId}-${id}-${flags}`;
 
+    console.log("traceparent - trace id: " + traceId);
+    console.log("traceparent - header: " + header);
+
     return TraceParent.fromString(header);
 }
 
@@ -33,9 +36,11 @@ const getCar = async () => {
     
     // Log successful response
     console.log(`Response for CAR ID ${carID}:`, response.data);
+    console.log(`Response for CAR ID ${carID}:`, response.headers);
   } catch (error) {
     // Log error response
     console.error(`Error for CAR ID ${carID}:`, error.message);
+    console.error(`Error for CAR ID ${carID}:`, response.headers);
   }
 };
 

@@ -40,7 +40,7 @@ const getCar = async () => {
   } catch (error) {
     // Log error response
     console.error(`Error for CAR ID ${carID}:`, error.message);
-    console.error(`Error for CAR ID ${carID}:`, response.headers);
+    console.error(`Error for CAR ID ${carID}:`, error.headers);
   }
 };
 

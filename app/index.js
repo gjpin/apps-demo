@@ -11,9 +11,6 @@ const generateTraceparent = () => {
 
     const header = `${version}-${traceId}-${id}-${flags}`;
 
-    console.log("traceparent - trace id: " + traceId);
-    console.log("traceparent - header: " + header);
-
     return TraceParent.fromString(header);
 }
 
@@ -26,6 +23,8 @@ const getRandomInt = (min, max) => {
 const getCar = async () => {
   const carID = getRandomInt(1, 1000000);
   const traceId = generateTraceparent();
+
+  console.log(traceId.traceId)
 
   try {
     const response = await axios.get(`http://bff1.apps-demo:3000/car/${carID}`, {

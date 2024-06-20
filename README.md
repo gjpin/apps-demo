@@ -1,4 +1,7 @@
 # Microservices
+
+![diagram](apps-demo.drawio.png)
+
 ## App
 - Creates traceparent header with [this library](https://www.npmjs.com/package/traceparent)
 - javascript client with axios that makes the following:

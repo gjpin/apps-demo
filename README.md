@@ -5,9 +5,9 @@
 ## App
 - Creates traceparent header with [this library](https://www.npmjs.com/package/traceparent)
 - javascript client with axios that makes the following:
- - makes GET requests constantly, with a delay between 0.2ms and 1.5s, to bff1/car/carID, where carID is a randomly generated integer between 1 and 1000000
- - makes POST requests constantly, with a delay between 0.2ms and 1.5s, to bff2/car/carID/extras/extraID, where carID and extraID are randomly generated integer between 1 and 1000000
- - all requests it makes have a header named 'traceparent' with contents generated with https://www.npmjs.com/package/traceparent
+  - makes GET requests constantly, with a delay between 0.2ms and 1.5s, to bff1/car/carID, where carID is a randomly generated integer between 1 and 1000000
+  - makes POST requests constantly, with a delay between 0.2ms and 1.5s, to bff2/car/carID/extras/extraID, where carID and extraID are randomly generated integer between 1 and 1000000
+  - all requests it makes have a header named 'traceparent' with contents generated with https://www.npmjs.com/package/traceparent
 
 ## BFF 1
 - bff1.apps-demo

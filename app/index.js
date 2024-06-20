@@ -25,7 +25,7 @@ const getCar = async () => {
   const traceId = generateTraceparent();
 
   try {
-    const response = await axios.get(`http://bff1.apps-demo/car/${carID}`, {
+    const response = await axios.get(`http://bff1.apps-demo:3000/car/${carID}`, {
       headers: {
         'traceparent': traceId
       }
@@ -46,7 +46,7 @@ const postExtras = async () => {
   const traceId = generateTraceparent();
 
   try {
-    const response = await axios.post(`http://bff2.apps-demo/car/${carID}/extras/${extraID}`, {
+    const response = await axios.post(`http://bff2.apps-demo:3000/car/${carID}/extras/${extraID}`, {
       headers: {
         'traceparent': traceId
       }

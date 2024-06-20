@@ -18,7 +18,7 @@ const forwardRequest = async (req, res) => {
 
   const { carID, extraID } = req.params;
   const traceparent = req.headers['traceparent'];
-  const url = `http://backend1.apps-demo/data/car/${carID}/extras/${extraID}`;
+  const url = `http://backend1.apps-demo:3000/data/car/${carID}/extras/${extraID}`;
 
   // Simulate 1% chance of receiving an error
   const errorChance = getRandomInt(1, 100);

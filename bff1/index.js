@@ -10,7 +10,7 @@ const forwardRequest = async (req, res) => {
 
   const { carID } = req.params;
   const traceparent = req.headers['traceparent'];
-  const url = `http://backend1.apps-demo/data/car/${carID}`;
+  const url = `http://backend1.apps-demo:3000/data/car/${carID}`;
 
   try {
     const response = await axios.get(url, {

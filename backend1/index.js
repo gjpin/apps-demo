@@ -35,7 +35,7 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
 
   const { carID, extraID } = req.params;
   const traceparent = req.headers['traceparent'];
-  const url = `http://backend2.apps-demo/sales/extras`;
+  const url = `http://backend2.apps-demo:3000/sales/extras`;
 
   // Simulate 0.5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);

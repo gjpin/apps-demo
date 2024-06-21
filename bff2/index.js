@@ -17,7 +17,7 @@ const forwardRequest = async (req, res) => {
   console.log('Received POST request at /car/carID/extras/extraID');
 
   const { carID, extraID } = req.params;
-  const traceparent = req.headers['traceparent'];
+  const traceparentHeader = req.headers['traceparent'];
   const url = `http://backend1.apps-demo:3000/data/car/${carID}/extras/${extraID}`;
 
   // Simulate 1% chance of receiving an error
@@ -31,7 +31,7 @@ const forwardRequest = async (req, res) => {
   try {
     const response = await axios.get(url, {
       headers: {
-        'traceparent': traceparent
+        'traceparent': traceparentHeader
       }
     })
     console.log("made request to backend1");

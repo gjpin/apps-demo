@@ -22,14 +22,14 @@ const getRandomInt = (min, max) => {
 // Function to make a GET request with a traceparent header
 const getCar = async () => {
   const carID = getRandomInt(1, 1000000);
-  const traceId = generateTraceparent();
+  const traceparentHeader = generateTraceparent();
 
-  console.log(traceId.traceId)
+  console.log(traceparentHeader.traceId)
 
   try {
     const response = await axios.get(`http://bff1.apps-demo:3000/car/${carID}`, {
       headers: {
-        'traceparent': traceId
+        'traceparent': traceparentHeader
       }
     });
     
@@ -39,7 +39,6 @@ const getCar = async () => {
   } catch (error) {
     // Log error response
     console.error(`Error for CAR ID ${carID}:`, error.message);
-    console.error(`Error for CAR ID ${carID}:`, error.headers);
   }
 };
 
@@ -47,12 +46,12 @@ const getCar = async () => {
 const postExtras = async () => {
   const carID = getRandomInt(1, 1000000);
   const extraID = getRandomInt(1, 1000000);
-  const traceId = generateTraceparent();
+  const traceparentHeader = generateTraceparent();
 
   try {
     const response = await axios.post(`http://bff2.apps-demo:3000/car/${carID}/extras/${extraID}`, {
       headers: {
-        'traceparent': traceId
+        'traceparent': traceparentHeader
       }
     });
     

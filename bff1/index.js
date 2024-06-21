@@ -4,6 +4,18 @@ const axios = require('axios');
 const app = express();
 const PORT = 3000;
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Middleware to handle the traceparent header
+app.use((req, res, next) => {
+  const traceparentHeader = req.header('traceparent');
+  if (traceparentHeader) {
+      res.setHeader('traceparent', traceparentHeader);
+  }
+  next();
+});
+
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
   const { carID } = req.params;

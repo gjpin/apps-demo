@@ -5,6 +5,15 @@ const PORT = 3000;
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Middleware to handle the traceparent header
+app.use((req, res, next) => {
+  const traceparentHeader = req.header('traceparent');
+  if (traceparentHeader) {
+      res.setHeader('traceparent', traceparentHeader);
+  }
+  next();
+});
+
 // Function to generate a random integer between min and max (inclusive)
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;

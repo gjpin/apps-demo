@@ -24,17 +24,15 @@ const getCar = async () => {
   const carID = getRandomInt(1, 1000000);
   const traceparentHeader = generateTraceparent();
 
-  console.log(traceparentHeader.traceId)
-
   try {
     const response = await axios.get(`http://bff1.apps-demo:3000/car/${carID}`, {
       headers: {
         'traceparent': traceparentHeader
       }
     });
-    
-    // Log successful response
-    console.log(`bff1 response: `, response.data);
+
+    // Log successful response headers
+    console.log(`bff1 response headers: `, JSON.stringify(response.headers));
   } catch (error) {
     // Log error response
     console.error(`bff1 error: `, error.message);
@@ -55,7 +53,7 @@ const postExtras = async () => {
     });
     
     // Log successful response
-    console.log(`bff2 response: `, response.data);
+    console.log(`bff2 response: `, JSON.stringify(response.headers));
   } catch (error) {
     // Log error response
     console.error(`bff2 error: `, error.message);

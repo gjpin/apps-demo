@@ -2,8 +2,8 @@
 1. Create Github [Personal Access Token](https://github.com/settings/tokens/new)
   - Give read/write/delete package permissions
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
-3. Build image: `docker buildx build --platform linux/amd64 --tag ghcr.io/gjpin/demo-app:6.0 .`
-4. Push image: `docker push ghcr.io/gjpin/demo-app:6.0`
+3. Build image: `docker buildx build --platform linux/amd64 --tag ghcr.io/gjpin/apps-demo-app:7.0 .`
+4. Push image: `docker push ghcr.io/gjpin/demo-app:7.0`
 
 # Microservices
 

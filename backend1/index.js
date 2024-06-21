@@ -66,7 +66,7 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
     });
 
     // Forward the response from backend2.com to the client
-    console.log(`backend2 response: `, response.data);
+    console.log(`backend2 response: `, JSON.stringify(response.headers));
     res.status(response.status).send(response.data);
   } catch (error) {
     // Handle any errors that occur during the request

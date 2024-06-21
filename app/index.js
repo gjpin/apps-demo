@@ -34,11 +34,10 @@ const getCar = async () => {
     });
     
     // Log successful response
-    console.log(`Response for CAR ID ${carID}:`, response.data);
-    console.log(`Response for CAR ID ${carID}:`, response.headers);
+    console.log(`bff1 response: `, response);
   } catch (error) {
     // Log error response
-    console.error(`Error for CAR ID ${carID}:`, error.message);
+    console.error(`bff1 error: `, error.message);
   }
 };
 
@@ -56,10 +55,10 @@ const postExtras = async () => {
     });
     
     // Log successful response
-    console.log(`Response for CAR ID ${carID} and EXTRA ID ${extraID}:`, response.data);
+    console.log(`bff2 response: `, response);
   } catch (error) {
     // Log error response
-    console.error(`Error for CAR ID ${carID} and EXTRA ID ${extraID}:`, error.message);
+    console.error(`bff2 error: `, error.message);
   }
 };
 

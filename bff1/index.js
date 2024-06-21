@@ -6,8 +6,6 @@ const PORT = 3000;
 
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
-  console.log('Received GET request at /car/carID');
-
   const { carID } = req.params;
   const traceparentHeader = req.headers['traceparent'];
   const url = `http://backend1.apps-demo:3000/data/car/${carID}`;
@@ -20,10 +18,11 @@ const forwardRequest = async (req, res) => {
     });
 
     // Forward the response from backend1.com to the client
+    console.log(`backend1 response`, response);
     res.status(response.status).send(response.data);
   } catch (error) {
     // Handle any errors that occur during the request
-    console.error(`Error fetching data for CAR ID ${carID}:`, error.message);
+    console.log(`backend1 error`, error);
     res.status(error.response ? error.response.status : 500).send(error.message);
   }
 };

@@ -14,8 +14,6 @@ const getRandomInt = (min, max) => {
 
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
-  console.log('Received POST request at /car/carID/extras/extraID');
-
   const { carID, extraID } = req.params;
   const traceparentHeader = req.headers['traceparent'];
   const url = `http://backend1.apps-demo:3000/data/car/${carID}/extras/${extraID}`;
@@ -33,15 +31,14 @@ const forwardRequest = async (req, res) => {
       headers: {
         'traceparent': traceparentHeader
       }
-    })
-    console.log("made request to backend1");
-    ;
+    });
 
     // Forward the response from backend1.com to the client
+    console.log(`backend1 response`, response);
     res.status(response.status).send(response.data);
   } catch (error) {
     // Handle any errors that occur during the request
-    console.error(`Error fetching data for carID ${carID} and extraID ${extraID}:`, error.message);
+    console.log(`backend1 error`, error);
     res.status(error.response ? error.response.status : 500).send(error.message);
   }
 };

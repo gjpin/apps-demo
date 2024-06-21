@@ -6,10 +6,10 @@ const TraceParent = require('traceparent');
 const generateTraceparent = () => {
     const version = Buffer.alloc(1).toString('hex');
     const traceId = crypto.randomBytes(16).toString('hex');
-    const spanId = crypto.randomBytes(8).toString('hex');
+    const parentId = crypto.randomBytes(8).toString('hex');
     const flags = '01';
 
-    const header = `${version}-${traceId}-${spanId}-${flags}`;
+    const header = `${version}-${traceId}-${parentId}-${flags}`;
 
     return TraceParent.fromString(header);
 }
@@ -34,7 +34,7 @@ const getCar = async () => {
     });
     
     // Log successful response
-    console.log(`bff1 response: `, response);
+    console.log(`bff1 response: `, response.data);
   } catch (error) {
     // Log error response
     console.error(`bff1 error: `, error.message);
@@ -55,7 +55,7 @@ const postExtras = async () => {
     });
     
     // Log successful response
-    console.log(`bff2 response: `, response);
+    console.log(`bff2 response: `, response.data);
   } catch (error) {
     // Log error response
     console.error(`bff2 error: `, error.message);

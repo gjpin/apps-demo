@@ -30,7 +30,7 @@ const forwardRequest = async (req, res) => {
     });
 
     // Forward the response from backend1.com to the client
-    console.log(`backend1 response`, response);
+    console.log(`backend1 response: `, response.data);
     res.status(response.status).send(response.data);
   } catch (error) {
     // Handle any errors that occur during the request

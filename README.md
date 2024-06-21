@@ -4,19 +4,19 @@
 2. Login to registry: `podman login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-podman buildx build --platform linux/amd64 --tag ghcr.io/gjpin/apps-demo-app:7.0 ./app
-podman buildx build --platform linux/amd64 --tag ghcr.io/gjpin/apps-demo-bff1:7.0 ./bff1
-podman buildx build --platform linux/amd64 --tag ghcr.io/gjpin/apps-demo-bff2:7.0 ./bff2
-podman buildx build --platform linux/amd64 --tag ghcr.io/gjpin/apps-demo-backend1:7.0 ./backend1
-podman buildx build --platform linux/amd64 --tag ghcr.io/gjpin/apps-demo-backend2:7.0 ./backend2
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:8.0 ./app
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:8.0 ./bff1
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff2:8.0 ./bff2
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:8.0 ./backend1
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:8.0 ./backend2
 ```
 4. Push images:
 ```
-podman push ghcr.io/gjpin/apps-demo-app:7.0
-podman push ghcr.io/gjpin/apps-demo-bff1:7.0
-podman push ghcr.io/gjpin/apps-demo-bff2:7.0
-podman push ghcr.io/gjpin/apps-demo-backend1:7.0
-podman push ghcr.io/gjpin/apps-demo-backend2:7.0
+podman push ghcr.io/gjpin/apps-demo-app:8.0
+podman push ghcr.io/gjpin/apps-demo-bff1:8.0
+podman push ghcr.io/gjpin/apps-demo-bff2:8.0
+podman push ghcr.io/gjpin/apps-demo-backend1:8.0
+podman push ghcr.io/gjpin/apps-demo-backend2:8.0
 ```
 
 # Microservices

@@ -4,19 +4,19 @@
 2. Login to registry: `podman login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:8.0 ./app
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:8.0 ./bff1
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff2:8.0 ./bff2
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:8.0 ./backend1
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:8.0 ./backend2
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:13.0 ./app
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:13.0 ./bff1
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff2:13.0 ./bff2
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:13.0 ./backend1
+podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:13.0 ./backend2
 ```
 4. Push images:
 ```
-podman push ghcr.io/gjpin/apps-demo-app:8.0
-podman push ghcr.io/gjpin/apps-demo-bff1:8.0
-podman push ghcr.io/gjpin/apps-demo-bff2:8.0
-podman push ghcr.io/gjpin/apps-demo-backend1:8.0
-podman push ghcr.io/gjpin/apps-demo-backend2:8.0
+podman push ghcr.io/gjpin/apps-demo-app:13.0
+podman push ghcr.io/gjpin/apps-demo-bff1:13.0
+podman push ghcr.io/gjpin/apps-demo-bff2:13.0
+podman push ghcr.io/gjpin/apps-demo-backend1:13.0
+podman push ghcr.io/gjpin/apps-demo-backend2:13.0
 ```
 
 # Microservices
@@ -28,7 +28,7 @@ podman push ghcr.io/gjpin/apps-demo-backend2:8.0
 - javascript client with axios that makes the following:
   - makes GET requests constantly, with a delay between 0.2ms and 1.5s, to bff1/car/carID, where carID is a randomly generated integer between 1 and 1000000
   - makes POST requests constantly, with a delay between 0.2ms and 1.5s, to bff2/car/carID/extras/extraID, where carID and extraID are randomly generated integer between 1 and 1000000
-  - all requests it makes have a header named 'traceparent' with contents generated with https://www.npmjs.com/package/traceparent
+  - all requests it makes have a header named 'Traceparent' with contents generated with https://www.npmjs.com/package/traceparent
 
 ## BFF 1
 - bff1.apps-demo

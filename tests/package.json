@@ -1,5 +1,5 @@
 {
-  "name": "backend2",
+  "name": "tests",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.19.2",
     "traceparent": "^1.0.0"
   }
 }

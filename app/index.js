@@ -6,12 +6,12 @@ const TraceParent = require('traceparent');
 const generateTraceparent = () => {
     const version = Buffer.alloc(1).toString('hex');
     const traceId = crypto.randomBytes(16).toString('hex');
-    const parentId = crypto.randomBytes(8).toString('hex');
+    const spanId = crypto.randomBytes(8).toString('hex');
     const flags = '01';
 
-    const header = `${version}-${traceId}-${parentId}-${flags}`;
+    const header = `${version}-${traceId}-${spanId}-${flags}`;
 
-    return TraceParent.fromString(header);
+    return header;
 }
 
 // Function to generate a random integer between min and max (inclusive)

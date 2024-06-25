@@ -1,20 +1,13 @@
 const express = require('express');
 const axios = require('axios');
+const crypto = require('crypto');
+const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-
-// Middleware to handle the traceparent header
-app.use((req, res, next) => {
-  const traceparentHeader = req.header('traceparent');
-  if (traceparentHeader) {
-      res.setHeader('traceparent', traceparentHeader);
-  }
-  next();
-});
 
 // Function to generate a random integer between min and max (inclusive)
 const getRandomInt = (min, max) => {
@@ -24,9 +17,6 @@ const getRandomInt = (min, max) => {
 // Endpoint /data/car/:carID
 app.get('/data/car/:carID', (req, res) => {
   console.log('Received GET request at /data/car/carID');
-
-  const { carID } = req.params;
-  const traceparentHeader = req.headers['traceparent'];
 
   // Simulate 2% chance of returning a 404 error
   const errorChance = getRandomInt(1, 100);
@@ -43,8 +33,13 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
   console.log('Received GET request at /data/car/carID/extras/extraID');
 
   const { carID, extraID } = req.params;
-  const traceparentHeader = req.headers['traceparent'];
   const url = `http://backend2.apps-demo:3000/sales/extras`;
+
+  // create new traceparent with same traceid
+  const traceparentHeader = req.headers['traceparent'];
+  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
+  const newSpanId = crypto.randomBytes(8).toString('hex');
+  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
 
   // Simulate 0.5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);
@@ -61,7 +56,7 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
       extraID: extraID
     }, {
       headers: {
-        'traceparent': traceparentHeader
+        'traceparent': newTraceparentHeader
       }
     });
 

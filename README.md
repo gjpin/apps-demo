@@ -1,22 +1,22 @@
 # Build and push
 1. Create Github [Personal Access Token](https://github.com/settings/tokens/new)
   - Give read/write/delete package permissions
-2. Login to registry: `podman login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
+2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:14.0 ./app
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:14.0 ./bff1
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff2:14.0 ./bff2
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:14.0 ./backend1
-podman build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:14.0 ./backend2
+docker buildx build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:14.0 ./app
+docker buildx build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:14.0 ./bff1
+docker buildx build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff2:14.0 ./bff2
+docker buildx build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:14.0 ./backend1
+docker buildx build --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:14.0 ./backend2
 ```
 4. Push images:
 ```
-podman push ghcr.io/gjpin/apps-demo-app:14.0
-podman push ghcr.io/gjpin/apps-demo-bff1:14.0
-podman push ghcr.io/gjpin/apps-demo-bff2:14.0
-podman push ghcr.io/gjpin/apps-demo-backend1:14.0
-podman push ghcr.io/gjpin/apps-demo-backend2:14.0
+docker push ghcr.io/gjpin/apps-demo-app:14.0
+docker push ghcr.io/gjpin/apps-demo-bff1:14.0
+docker push ghcr.io/gjpin/apps-demo-bff2:14.0
+docker push ghcr.io/gjpin/apps-demo-backend1:14.0
+docker push ghcr.io/gjpin/apps-demo-backend2:14.0
 ```
 
 # Microservices

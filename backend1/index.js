@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const TraceParent = require('traceparent');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -33,7 +33,7 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
   console.log('Received GET request at /data/car/carID/extras/extraID');
 
   const { carID, extraID } = req.params;
-  const url = `http://backend2.apps-demo:3000/sales/extras`;
+  const url = `http://backend2.apps-demo:8080/sales/extras`;
 
   // create new traceparent with same traceid
   const traceparentHeader = req.headers['traceparent'];

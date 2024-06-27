@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const TraceParent = require('traceparent');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 // Middleware to parse JSON bodies
 app.use(express.json());

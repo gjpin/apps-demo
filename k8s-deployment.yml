@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: load-app
-          image: ghcr.io/gjpin/apps-demo-app:13.0
+          image: ghcr.io/gjpin/apps-demo-app:14.0
           resources:
             requests:
               cpu: "100m"
@@ -30,7 +30,7 @@ spec:
               cpu: "1000m"
               memory: "1024Mi"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -41,7 +41,7 @@ metadata:
     app: load-app
 spec:
   ports:
-    - port: 3000
+    - port: 8080
   selector:
     app: load-app
 ---
@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: bff1
-          image: ghcr.io/gjpin/apps-demo-bff1:13.0
+          image: ghcr.io/gjpin/apps-demo-bff1:14.0
           resources:
             requests:
               cpu: "100m"
@@ -72,7 +72,7 @@ spec:
               cpu: "1000m"
               memory: "1024Mi"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -83,7 +83,7 @@ metadata:
     app: bff1
 spec:
   ports:
-    - port: 3000
+    - port: 8080
   selector:
     app: bff1
 ---
@@ -105,7 +105,7 @@ spec:
     spec:
       containers:
         - name: bff2
-          image: ghcr.io/gjpin/apps-demo-bff2:13.0
+          image: ghcr.io/gjpin/apps-demo-bff2:14.0
           resources:
             requests:
               cpu: "100m"
@@ -114,7 +114,7 @@ spec:
               cpu: "1000m"
               memory: "1024Mi"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -125,7 +125,7 @@ metadata:
     app: bff2
 spec:
   ports:
-    - port: 3000
+    - port: 8080
   selector:
     app: bff2
 
@@ -148,7 +148,7 @@ spec:
     spec:
       containers:
         - name: backend1
-          image: ghcr.io/gjpin/apps-demo-backend1:13.0
+          image: ghcr.io/gjpin/apps-demo-backend1:14.0
           resources:
             requests:
               cpu: "100m"
@@ -157,7 +157,7 @@ spec:
               cpu: "1000m"
               memory: "1024Mi"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -168,7 +168,7 @@ metadata:
     app: backend1
 spec:
   ports:
-    - port: 3000
+    - port: 8080
   selector:
     app: backend1
 
@@ -191,7 +191,7 @@ spec:
     spec:
       containers:
         - name: backend2
-          image: ghcr.io/gjpin/apps-demo-backend2:13.0
+          image: ghcr.io/gjpin/apps-demo-backend2:14.0
           resources:
             requests:
               cpu: "100m"
@@ -200,7 +200,7 @@ spec:
               cpu: "1000m"
               memory: "1024Mi"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -211,6 +211,6 @@ metadata:
     app: backend2
 spec:
   ports:
-    - port: 3000
+    - port: 8080
   selector:
     app: backend2

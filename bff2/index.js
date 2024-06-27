@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const TraceParent = require('traceparent');
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -17,7 +17,7 @@ const getRandomInt = (min, max) => {
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
   const { carID, extraID } = req.params;
-  const url = `http://backend1.apps-demo:3000/data/car/${carID}/extras/${extraID}`;
+  const url = `http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`;
 
   // create new traceparent with same traceid
   const traceparentHeader = req.headers['traceparent'];

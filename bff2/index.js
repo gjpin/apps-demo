@@ -1,7 +1,5 @@
 const express = require('express');
 const axios = require('axios');
-const crypto = require('crypto');
-const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -17,13 +15,8 @@ const getRandomInt = (min, max) => {
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
   const { carID, extraID } = req.params;
-  const url = `http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`;
-
-  // create new traceparent with same traceid
   const traceparentHeader = req.headers['traceparent'];
-  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
-  const newSpanId = crypto.randomBytes(8).toString('hex');
-  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
+  const url = `http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`;
 
   // Simulate 1% chance of receiving an error
   const errorChance = getRandomInt(1, 100);
@@ -36,7 +29,7 @@ const forwardRequest = async (req, res) => {
   try {
     const response = await axios.get(url, {
       headers: {
-        'traceparent': newTraceparentHeader
+        'traceparent': traceparentHeader
       }
     });
 

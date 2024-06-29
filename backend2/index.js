@@ -1,6 +1,4 @@
 const express = require('express');
-const crypto = require('crypto');
-const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -16,6 +14,7 @@ const getRandomInt = (min, max) => {
 // Route to handle POST requests at /sales/extras
 app.post('/sales/extras', (req, res) => {
   console.log('Received POST request at /sales/extras');
+  console.log(req.headers);
 
   // Simulate 1.5% chance of returning an error (400 or 500)
   const errorChance = getRandomInt(1, 10000); // 1.5% chance

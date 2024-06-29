@@ -1,7 +1,5 @@
 const express = require('express');
 const axios = require('axios');
-const crypto = require('crypto');
-const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -12,18 +10,13 @@ app.use(express.json());
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
   const { carID } = req.params;
+  const traceparentHeader = req.header['traceparent'];
   const url = `http://backend1.apps-demo:8080/data/car/${carID}`;
-
-  // create new traceparent with same traceid
-  const traceparentHeader = req.headers['traceparent'];
-  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
-  const newSpanId = crypto.randomBytes(8).toString('hex');
-  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
 
   try {
     const response = await axios.get(url, {
       headers: {
-        'traceparent': newTraceparentHeader
+        'traceparent': traceparentHeader
       }
     });
 

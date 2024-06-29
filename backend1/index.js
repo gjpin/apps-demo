@@ -1,7 +1,5 @@
 const express = require('express');
 const axios = require('axios');
-const crypto = require('crypto');
-const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -33,13 +31,8 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
   console.log('Received GET request at /data/car/carID/extras/extraID');
 
   const { carID, extraID } = req.params;
-  const url = `http://backend2.apps-demo:8080/sales/extras`;
-
-  // create new traceparent with same traceid
   const traceparentHeader = req.headers['traceparent'];
-  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
-  const newSpanId = crypto.randomBytes(8).toString('hex');
-  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
+  const url = `http://backend2.apps-demo:8080/sales/extras`;
 
   // Simulate 0.5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);
@@ -56,7 +49,7 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
       extraID: extraID
     }, {
       headers: {
-        'traceparent': newTraceparentHeader
+        'traceparent': traceparentHeader
       }
     });
 

@@ -13,6 +13,9 @@ const forwardRequest = async (req, res) => {
   const traceparentHeader = req.header['traceparent'];
   const url = `http://backend1.apps-demo:8080/data/car/${carID}`;
 
+  console.log('Received request at /car/carID');
+  console.log("traceparent header from app: " + traceparentHeader)
+
   try {
     const response = await axios.get(url, {
       headers: {

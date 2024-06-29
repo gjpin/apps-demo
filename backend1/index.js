@@ -14,7 +14,8 @@ const getRandomInt = (min, max) => {
 
 // Endpoint /data/car/:carID
 app.get('/data/car/:carID', (req, res) => {
-  console.log('Received GET request at /data/car/carID');
+  console.log('Received request at /data/car/carID');
+  console.log("traceparent header from bff1: " + traceparentHeader)
 
   // Simulate 2% chance of returning a 404 error
   const errorChance = getRandomInt(1, 100);
@@ -28,7 +29,8 @@ app.get('/data/car/:carID', (req, res) => {
 
 // Endpoint /data/car/:carID/extras/:extraID
 app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
-  console.log('Received GET request at /data/car/carID/extras/extraID');
+  console.log('Received request at /data/car/carID/extras/extraID');
+  console.log("traceparent header from bff2: " + traceparentHeader)
 
   const { carID, extraID } = req.params;
   const traceparentHeader = req.headers['traceparent'];

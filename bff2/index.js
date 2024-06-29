@@ -18,6 +18,9 @@ const forwardRequest = async (req, res) => {
   const traceparentHeader = req.headers['traceparent'];
   const url = `http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`;
 
+  console.log('Received request at /car/carID/extras/extraID');
+  console.log("traceparent header from app: " + traceparentHeader)
+
   // Simulate 1% chance of receiving an error
   const errorChance = getRandomInt(1, 100);
   if (errorChance === 1) {

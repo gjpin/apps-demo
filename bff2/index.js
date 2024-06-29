@@ -16,7 +16,6 @@ const getRandomInt = (min, max) => {
 const forwardRequest = async (req, res) => {
   const { carID, extraID } = req.params;
   const traceparentHeader = req.headers['traceparent'];
-  const url = `http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`;
 
   console.log('Received request at /car/carID/extras/extraID');
   console.log("traceparent header from app: " + traceparentHeader)
@@ -29,12 +28,14 @@ const forwardRequest = async (req, res) => {
     return res.status(errorType).send(`Simulated ${errorType} error`);
   }
 
+  const axiosConfig = {
+    headers: {
+      'traceparent': traceparentHeader
+    }
+  };
+
   try {
-    const response = await axios.get(url, {
-      headers: {
-        'traceparent': traceparentHeader
-      }
-    });
+    const response = await axios.get(`http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`, axiosConfig);
 
     // Forward the response from backend1.com to the client
     console.log(`backend1 response: `, JSON.stringify(response.headers));

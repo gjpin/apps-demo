@@ -21,7 +21,8 @@ spec:
     spec:
       containers:
         - name: load-app
-          image: ghcr.io/gjpin/apps-demo-app:21.0
+          image: ghcr.io/gjpin/apps-demo-app:25.0
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"
@@ -63,7 +64,8 @@ spec:
     spec:
       containers:
         - name: bff1
-          image: ghcr.io/gjpin/apps-demo-bff1:21.0
+          image: ghcr.io/gjpin/apps-demo-bff1:25.0
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"
@@ -105,7 +107,8 @@ spec:
     spec:
       containers:
         - name: bff2
-          image: ghcr.io/gjpin/apps-demo-bff2:21.0
+          image: ghcr.io/gjpin/apps-demo-bff2:25.0
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"
@@ -148,7 +151,8 @@ spec:
     spec:
       containers:
         - name: backend1
-          image: ghcr.io/gjpin/apps-demo-backend1:21.0
+          image: ghcr.io/gjpin/apps-demo-backend1:25.0
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"
@@ -191,7 +195,8 @@ spec:
     spec:
       containers:
         - name: backend2
-          image: ghcr.io/gjpin/apps-demo-backend2:21.0
+          image: ghcr.io/gjpin/apps-demo-backend2:25.0
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"

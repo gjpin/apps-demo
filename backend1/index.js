@@ -14,6 +14,8 @@ const getRandomInt = (min, max) => {
 
 // Endpoint /data/car/:carID
 app.get('/data/car/:carID', (req, res) => {
+  const traceparentHeader = req.headers['traceparent'];
+
   console.log('Received request at /data/car/carID');
   console.log("traceparent header from bff1: " + traceparentHeader)
 
@@ -29,12 +31,10 @@ app.get('/data/car/:carID', (req, res) => {
 
 // Endpoint /data/car/:carID/extras/:extraID
 app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
+  const traceparentHeader = req.headers['traceparent'];
+
   console.log('Received request at /data/car/carID/extras/extraID');
   console.log("traceparent header from bff2: " + traceparentHeader)
-
-  const { carID, extraID } = req.params;
-  const traceparentHeader = req.headers['traceparent'];
-  const url = `http://backend2.apps-demo:8080/sales/extras`;
 
   // Simulate 0.5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);
@@ -44,16 +44,18 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
     return res.status(errorType).send(`Simulated ${errorType} error`);
   }
 
+  const axiosConfig = {
+    headers: {
+      'traceparent': traceparentHeader
+    }
+  };
+
+  const postData = {
+    data: 'dummy-data'
+  };
+
   try {
-    // Make POST request to backend2.com
-    const response = await axios.post(url, {
-      carID: carID,
-      extraID: extraID
-    }, {
-      headers: {
-        'traceparent': traceparentHeader
-      }
-    });
+    const response = await axios.post(`http://backend2.apps-demo:8080/sales/extras`, postData, axiosConfig);
 
     // Forward the response from backend2.com to the client
     console.log(`backend2 response: `, JSON.stringify(response.headers));

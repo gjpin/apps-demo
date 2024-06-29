@@ -24,12 +24,14 @@ const getCar = async () => {
   const carID = getRandomInt(1, 1000000);
   const traceparentHeader = generateTraceparent();
 
+  const axiosConfig = {
+    headers: {
+      'traceparent': traceparentHeader
+    }
+  };
+
   try {
-    const response = await axios.get(`http://bff1.apps-demo:8080/car/${carID}`, {
-      headers: {
-        'traceparent': traceparentHeader
-      }
-    });
+    const response = await axios.get(`http://bff1.apps-demo:8080/car/${carID}`, axiosConfig);
 
     // Log successful response headers
     console.log(`bff1 response headers: `, JSON.stringify(response.headers));
@@ -45,12 +47,18 @@ const postExtras = async () => {
   const extraID = getRandomInt(1, 1000000);
   const traceparentHeader = generateTraceparent();
 
+  const axiosConfig = {
+    headers: {
+      'traceparent': traceparentHeader
+    }
+  };
+
+  const postData = {
+    data: 'dummy-data'
+  };
+
   try {
-    const response = await axios.post(`http://bff2.apps-demo:8080/car/${carID}/extras/${extraID}`, {
-      headers: {
-        'traceparent': traceparentHeader
-      }
-    });
+    const response = await axios.post(`http://bff2.apps-demo:8080/car/${carID}/extras/${extraID}`, postData, axiosConfig);
     
     // Log successful response
     console.log(`bff2 response: `, JSON.stringify(response.headers));

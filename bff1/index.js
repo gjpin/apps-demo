@@ -10,18 +10,19 @@ app.use(express.json());
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
   const { carID } = req.params;
-  const traceparentHeader = req.header['traceparent'];
-  const url = `http://backend1.apps-demo:8080/data/car/${carID}`;
+  const traceparentHeader = req.headers['traceparent'];
 
   console.log('Received request at /car/carID');
   console.log("traceparent header from app: " + traceparentHeader)
 
+  const axiosConfig = {
+    headers: {
+      'traceparent': traceparentHeader
+    }
+  };
+
   try {
-    const response = await axios.get(url, {
-      headers: {
-        'traceparent': traceparentHeader
-      }
-    });
+    const response = await axios.get(`http://backend1.apps-demo:8080/data/car/${carID}`, axiosConfig);
 
     // Forward the response from backend1.com to the client
     console.log(`backend1 response: `, JSON.stringify(response.headers));

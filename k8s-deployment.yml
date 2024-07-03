@@ -32,6 +32,28 @@ spec:
               memory: "1024Mi"
           ports:
             - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - app-nodes  
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - load-app
+                - bff1
+                - bff2
+                - backend1
+                - backend2
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
@@ -75,6 +97,28 @@ spec:
               memory: "1024Mi"
           ports:
             - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - app-nodes  
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - load-app
+                - bff1
+                - bff2
+                - backend1
+                - backend2
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
@@ -118,6 +162,28 @@ spec:
               memory: "1024Mi"
           ports:
             - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - app-nodes  
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - load-app
+                - bff1
+                - bff2
+                - backend1
+                - backend2
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
@@ -162,6 +228,28 @@ spec:
               memory: "1024Mi"
           ports:
             - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - app-nodes  
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - load-app
+                - bff1
+                - bff2
+                - backend1
+                - backend2
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service
@@ -206,6 +294,28 @@ spec:
               memory: "1024Mi"
           ports:
             - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - app-nodes  
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - load-app
+                - bff1
+                - bff2
+                - backend1
+                - backend2
+            topologyKey: "kubernetes.io/hostname"
 ---
 apiVersion: v1
 kind: Service

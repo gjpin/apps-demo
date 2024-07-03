@@ -1,5 +1,7 @@
 const express = require('express');
 const axios = require('axios');
+const crypto = require('crypto')
+const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -36,6 +38,13 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
   console.log('Received request at /data/car/carID/extras/extraID');
   console.log("traceparent header from bff2: " + traceparentHeader)
 
+  // create new traceparent with same traceid
+  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
+  const newSpanId = crypto.randomBytes(8).toString('hex');
+  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
+
+  console.log("new traceparent header: " + newTraceparentHeader)
+
   // Simulate 0.5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);
   if (errorChance === 1) {
@@ -46,7 +55,7 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
 
   const axiosConfig = {
     headers: {
-      'traceparent': traceparentHeader
+      'traceparent': newTraceparentHeader
     }
   };
 

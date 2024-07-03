@@ -1,5 +1,7 @@
 const express = require('express');
 const axios = require('axios');
+const crypto = require('crypto')
+const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -15,9 +17,16 @@ const forwardRequest = async (req, res) => {
   console.log('Received request at /car/carID');
   console.log("traceparent header from app: " + traceparentHeader)
 
+  // create new traceparent with same traceid
+  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
+  const newSpanId = crypto.randomBytes(8).toString('hex');
+  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
+
+  console.log("new traceparent header: " + newTraceparentHeader)
+
   const axiosConfig = {
     headers: {
-      'traceparent': traceparentHeader
+      'traceparent': newTraceparentHeader
     }
   };
 

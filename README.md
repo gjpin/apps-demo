@@ -1,8 +1,17 @@
+# Test locally
+
+1. Add grafana helm repo: `helm repo add grafana https://grafana.github.io/helm-charts`
+2. Update helm repos: `helm repo update`
+
 # Build and push
+
 1. Create Github [Personal Access Token](https://github.com/settings/tokens/new)
-  - Give read/write/delete package permissions
+
+- Give read/write/delete package permissions
+
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
+
 ```
 docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:25.0 ./app
 docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:25.0 ./bff1
@@ -10,7 +19,9 @@ docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-d
 docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:25.0 ./backend1
 docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:25.0 ./backend2
 ```
+
 4. Push images:
+
 ```
 docker push ghcr.io/gjpin/apps-demo-app:25.0
 docker push ghcr.io/gjpin/apps-demo-bff1:25.0
@@ -24,6 +35,7 @@ docker push ghcr.io/gjpin/apps-demo-backend2:25.0
 ![diagram](apps-demo.drawio.png)
 
 ## App
+
 - Creates traceparent header with [this library](https://www.npmjs.com/package/traceparent)
 - javascript client with axios that makes the following:
   - makes GET requests constantly, with a delay between 0.2ms and 1.5s, to bff1/car/carID, where carID is a randomly generated integer between 1 and 1000000
@@ -31,6 +43,7 @@ docker push ghcr.io/gjpin/apps-demo-backend2:25.0
   - all requests it makes have a header named 'Traceparent' with contents generated with https://www.npmjs.com/package/traceparent
 
 ## BFF 1
+
 - bff1.apps-demo
 - nodejs server that receives GET requests at /car/carID, where carID is an integer value
   - when it receives the requests, it makes a new GET request to backend1 at GET /data/car/carID
@@ -38,6 +51,7 @@ docker push ghcr.io/gjpin/apps-demo-backend2:25.0
 - it forwards the traceparent header it receives from the client and forwards it in its requests
 
 ## BFF 2
+
 - bff2.apps-demo
 - nodejs server that receives POST requests at /car/carID/extras/extraID, where carID and extraID are integer values
   - when it receives the requests, it makes a new GET request to backend1 at GET /data/car/carID/extras/extraID
@@ -46,6 +60,7 @@ docker push ghcr.io/gjpin/apps-demo-backend2:25.0
 - it forwards the traceparent header it receives from the client and forwards it in its requests
 
 ## Backend 1
+
 - backend1.apps-demo
 - nodejs server that receives GET requests at /data/car/carID and /data/car/carID/extras/extraID, where carID and extraID are integer values
   - for endpoint /data/car/carID, return a 404 error 2% of the time. otherwise, return a string "your car ID has full battery"
@@ -53,6 +68,7 @@ docker push ghcr.io/gjpin/apps-demo-backend2:25.0
 - it forwards the traceparent header it receives from the client and forwards it in its requests
 
 ## Backend 2
+
 - backend2.apps-demo
 - nodejs server that receives POST requests at /sales/extras
   - 1.5% of the time it returns a 400 or 500 error. otherwise, return return 201

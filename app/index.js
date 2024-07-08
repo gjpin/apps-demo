@@ -4,12 +4,10 @@ const TraceParent = require('traceparent');
 
 // Generate traceparent
 const generateTraceparent = () => {
-    const version = Buffer.alloc(1).toString('hex');
     const traceId = crypto.randomBytes(16).toString('hex');
     const spanId = crypto.randomBytes(8).toString('hex');
-    const flags = '01';
 
-    const header = `${version}-${traceId}-${spanId}-${flags}`;
+    const header = `00-${traceId}-${spanId}-01`;
 
     return header;
 }

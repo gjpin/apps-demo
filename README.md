@@ -2,6 +2,7 @@
 
 1. Add grafana helm repo: `helm repo add grafana https://grafana.github.io/helm-charts`
 2. Update helm repos: `helm repo update`
+3. start minikube cluster: `minikube start --nodes 6 -p apps-demo`
 
 # Build and push
 

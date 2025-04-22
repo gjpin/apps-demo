@@ -10,6 +10,10 @@ docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-d
 docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:25.0 ./backend1
 docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:25.0 ./backend2
 ```
+**Note:** If you have issues during buildx run the following command to check if you have installed multi platform support for buildx:
+```
+docker run --privileged --rm tonistiigi/binfmt --install all
+```
 4. Push images:
 ```
 docker push ghcr.io/gjpin/apps-demo-app:25.0

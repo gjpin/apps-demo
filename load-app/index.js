@@ -28,8 +28,9 @@ const getCar = async () => {
     }
   };
 
+  const baseUrl = process.env.BFF1_BASE_URL || 'http://bff1.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.get(`http://bff1.apps-demo:8080/car/${carID}`, axiosConfig);
+    const response = await axios.get(`${baseUrl}/car/${carID}`, axiosConfig);
 
     // Log successful response headers
     console.log(`bff1 response headers: `, JSON.stringify(response.headers));
@@ -55,8 +56,9 @@ const postExtras = async () => {
     data: 'dummy-data'
   };
 
+  const baseUrl = process.env.BFF2_BASE_URL || 'http://bff2.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.post(`http://bff2.apps-demo:8080/car/${carID}/extras/${extraID}`, postData, axiosConfig);
+    const response = await axios.post(`${baseUrl}/car/${carID}/extras/${extraID}`, postData, axiosConfig);
     
     // Log successful response
     console.log(`bff2 response: `, JSON.stringify(response.headers));

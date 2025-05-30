@@ -43,8 +43,9 @@ const forwardRequest = async (req, res) => {
     }
   };
 
+  const baseUrl = process.env.BACKEND1_BASE_URL || 'http://backend1.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.get(`http://backend1.apps-demo:8080/data/car/${carID}/extras/${extraID}`, axiosConfig);
+    const response = await axios.get(`${baseUrl}/data/car/${carID}/extras/${extraID}`, axiosConfig);
 
     // Forward the response from backend1.com to the client
     console.log(`backend1 response: `, JSON.stringify(response.headers));

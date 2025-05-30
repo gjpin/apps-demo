@@ -4,11 +4,11 @@
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-app:25.0 ./app
-docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff1:25.0 ./bff1
-docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-bff2:25.0 ./bff2
-docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend1:25.0 ./backend1
-docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/apps-demo-backend2:25.0 ./backend2
+docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/demo-apps-app:25.0 ./load-app
+docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/demo-apps-bff1:25.0 ./bff1
+docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/demo-apps-bff2:25.0 ./bff2
+docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/demo-apps-backend1:25.0 ./backend1
+docker buildx build --no-cache --platform=linux/amd64 --tag=ghcr.io/gjpin/demo-apps-backend2:25.0 ./backend2
 ```
 **Note:** If you have issues during buildx run the following command to check if you have installed multi platform support for buildx:
 ```
@@ -16,11 +16,11 @@ docker run --privileged --rm tonistiigi/binfmt --install all
 ```
 4. Push images:
 ```
-docker push ghcr.io/gjpin/apps-demo-app:25.0
-docker push ghcr.io/gjpin/apps-demo-bff1:25.0
-docker push ghcr.io/gjpin/apps-demo-bff2:25.0
-docker push ghcr.io/gjpin/apps-demo-backend1:25.0
-docker push ghcr.io/gjpin/apps-demo-backend2:25.0
+docker push ghcr.io/gjpin/demo-apps-load-app:25.0
+docker push ghcr.io/gjpin/demo-apps-bff1:25.0
+docker push ghcr.io/gjpin/demo-apps-bff2:25.0
+docker push ghcr.io/gjpin/demo-apps-backend1:25.0
+docker push ghcr.io/gjpin/demo-apps-backend2:25.0
 ```
 
 # Microservices

@@ -63,8 +63,9 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
     data: 'dummy-data'
   };
 
+  const baseUrl = process.env.BACKEND2_BASE_URL || 'http://backend2.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.post(`http://backend2.apps-demo:8080/sales/extras`, postData, axiosConfig);
+    const response = await axios.post(`${baseUrl}/sales/extras`, postData, axiosConfig);
 
     // Forward the response from backend2.com to the client
     console.log(`backend2 response: `, JSON.stringify(response.headers));

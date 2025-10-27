@@ -10,8 +10,8 @@ const {
 } = require('@opentelemetry/exporter-metrics-otlp-proto');
 const { PeriodicExportingMetricReader } = require('@opentelemetry/sdk-metrics');
 
-const otlpTracesEndpoint = process.env.OTLP_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/traces';
-const otlpMetricsEndpoint = process.env.OTLP_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/metrics';
+const otlpTracesEndpoint = process.env.OTLP_TRACES_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/traces';
+const otlpMetricsEndpoint = process.env.OTLP_METRICS_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/metrics';
 
 const sdk = new opentelemetry.NodeSDK({
   traceExporter: new OTLPTraceExporter({

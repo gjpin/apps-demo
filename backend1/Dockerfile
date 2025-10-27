@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:25-trixie-slim
 
 # Create and change to the app directory
 WORKDIR /usr/src/app
@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 8080
 
 # Define the command to run the app
-CMD ["node", "index.js"]
+CMD ["node", "--import", "./instrumentation.mjs", "index.js"]

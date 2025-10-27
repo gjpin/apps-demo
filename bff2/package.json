@@ -10,6 +10,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.66.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.207.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.207.0",
+    "@opentelemetry/sdk-metrics": "^2.2.0",
+    "@opentelemetry/sdk-node": "^0.207.0",
+    "@opentelemetry/sdk-trace-node": "^2.2.0",
     "axios": "^1.7.2",
     "express": "^4.19.2",
     "traceparent": "^1.0.0"

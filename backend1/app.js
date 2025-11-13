@@ -32,9 +32,9 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
 
   console.log('Received request at /data/car/carID/extras/extraID');
 
-  // Simulate 0.5% chance of returning a 402 or 401 error
+  // Simulate 5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);
-  if (errorChance === 1) {
+  if (errorChance <= 5) {
     const errorTypes = [502, 401];
     const errorType = errorTypes[getRandomInt(0, errorTypes.length - 1)];
     return res.status(errorType).send(`Simulated ${errorType} error`);

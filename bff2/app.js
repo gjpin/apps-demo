@@ -17,7 +17,7 @@ const getRandomInt = (min, max) => {
 const forwardRequest = async (req, res) => {
   const { carID, extraID } = req.params;
 
-  console.log('Received request at /car/carID/extras/extraID');)
+  console.log('Received request at /car/carID/extras/extraID');
 
   // Simulate 1% chance of receiving an error
   const errorChance = getRandomInt(1, 100);

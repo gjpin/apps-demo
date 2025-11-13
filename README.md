@@ -5,7 +5,7 @@
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-app:50.0 ./load-app
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-load-app:50.0 ./load-app
 docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff1:50.0 ./bff1
 docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff2:50.0 ./bff2
 docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend1:50.0 ./backend1

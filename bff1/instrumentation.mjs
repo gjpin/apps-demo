@@ -1,32 +1,27 @@
-const opentelemetry = require('@opentelemetry/sdk-node');
-const {
-  getNodeAutoInstrumentations,
-} = require('@opentelemetry/auto-instrumentations-node');
-const {
-  OTLPTraceExporter,
-} = require('@opentelemetry/exporter-trace-otlp-proto');
-const {
-  OTLPMetricExporter,
-} = require('@opentelemetry/exporter-metrics-otlp-proto');
-const { PeriodicExportingMetricReader } = require('@opentelemetry/sdk-metrics');
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
+import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
+import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 
+// Set otlp endpoints
 const otlpTracesEndpoint = process.env.OTLP_TRACES_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/traces';
 const otlpMetricsEndpoint = process.env.OTLP_METRICS_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/metrics';
 
-const sdk = new opentelemetry.NodeSDK({
+const sdk = new NodeSDK({
   traceExporter: new OTLPTraceExporter({
-    // optional - default url is http://localhost:4318/v1/traces
     url: otlpTracesEndpoint,
-    // optional - collection of custom headers to be sent with each request, empty by default
     headers: {},
   }),
   metricReader: new PeriodicExportingMetricReader({
     exporter: new OTLPMetricExporter({
       url: otlpMetricsEndpoint,
-      headers: {}, // an optional object containing custom headers to be sent with each request
-      concurrencyLimit: 1, // an optional limit on pending requests
+      headers: {},
+      concurrencyLimit: 1,
     }),
   }),
   instrumentations: [getNodeAutoInstrumentations()],
 });
+
 sdk.start();

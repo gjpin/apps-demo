@@ -1,7 +1,6 @@
 const express = require('express');
 const axios = require('axios');
 const crypto = require('crypto')
-const TraceParent = require('traceparent');
 
 const app = express();
 const PORT = 8080;
@@ -9,30 +8,28 @@ const PORT = 8080;
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Function to generate a random integer between min and max (inclusive)
+const getRandomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 // Function to forward the request to backend1.com and return the response
 const forwardRequest = async (req, res) => {
-  const { carID } = req.params;
-  const traceparentHeader = req.headers['traceparent'];
+  const { carID, extraID } = req.params;
 
-  console.log('Received request at /car/carID');
-  console.log("traceparent header from app: " + traceparentHeader)
+  console.log('Received request at /car/carID/extras/extraID');)
 
-  // create new traceparent with same traceid
-  const traceparentBuffer = TraceParent.fromString(traceparentHeader);
-  const newSpanId = crypto.randomBytes(8).toString('hex');
-  const newTraceparentHeader = "00-" + traceparentBuffer.traceId + "-" + newSpanId + "-01";
-
-  console.log("new traceparent header: " + newTraceparentHeader)
-
-  const axiosConfig = {
-    headers: {
-      'traceparent': newTraceparentHeader
-    }
-  };
+  // Simulate 1% chance of receiving an error
+  const errorChance = getRandomInt(1, 100);
+  if (errorChance === 1) {
+    const errorTypes = [500, 503, 504, 403];
+    const errorType = errorTypes[getRandomInt(0, errorTypes.length - 1)];
+    return res.status(errorType).send(`Simulated ${errorType} error`);
+  }
 
   const baseUrl = process.env.BACKEND1_BASE_URL || 'http://backend1.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.get(`${baseUrl}/data/car/${carID}`, axiosConfig);
+    const response = await axios.get(`${baseUrl}/data/car/${carID}/extras/${extraID}`);
 
     // Forward the response from backend1.com to the client
     console.log(`backend1 response: `, JSON.stringify(response.headers));
@@ -44,8 +41,8 @@ const forwardRequest = async (req, res) => {
   }
 };
 
-// Set up the route to handle GET requests at /car/carID
-app.get('/car/:carID', forwardRequest);
+// Route to handle POST requests at /car/:carID/extras/:extraID
+app.post('/car/:carID/extras/:extraID', forwardRequest);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

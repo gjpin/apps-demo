@@ -1,36 +1,17 @@
 const axios = require('axios');
 const crypto = require('crypto')
-const TraceParent = require('traceparent');
-
-// Generate traceparent
-const generateTraceparent = () => {
-    const traceId = crypto.randomBytes(16).toString('hex');
-    const spanId = crypto.randomBytes(8).toString('hex');
-
-    const header = `00-${traceId}-${spanId}-01`;
-
-    return header;
-}
 
 // Function to generate a random integer between min and max (inclusive)
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// Function to make a GET request with a traceparent header
 const getCar = async () => {
   const carID = getRandomInt(1, 1000000);
-  const traceparentHeader = generateTraceparent();
-
-  const axiosConfig = {
-    headers: {
-      'traceparent': traceparentHeader
-    }
-  };
 
   const baseUrl = process.env.BFF1_BASE_URL || 'http://bff1.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.get(`${baseUrl}/car/${carID}`, axiosConfig);
+    const response = await axios.get(`${baseUrl}/car/${carID}`);
 
     // Log successful response headers
     console.log(`bff1 response headers: `, JSON.stringify(response.headers));
@@ -40,17 +21,9 @@ const getCar = async () => {
   }
 };
 
-// Function to make a POST request with a traceparent header
 const postExtras = async () => {
   const carID = getRandomInt(1, 1000000);
   const extraID = getRandomInt(1, 1000000);
-  const traceparentHeader = generateTraceparent();
-
-  const axiosConfig = {
-    headers: {
-      'traceparent': traceparentHeader
-    }
-  };
 
   const postData = {
     data: 'dummy-data'
@@ -58,7 +31,7 @@ const postExtras = async () => {
 
   const baseUrl = process.env.BFF2_BASE_URL || 'http://bff2.demo-apps.svc.cluster.local:8080';
   try {
-    const response = await axios.post(`${baseUrl}/car/${carID}/extras/${extraID}`, postData, axiosConfig);
+    const response = await axios.post(`${baseUrl}/car/${carID}/extras/${extraID}`, postData);
     
     // Log successful response
     console.log(`bff2 response: `, JSON.stringify(response.headers));

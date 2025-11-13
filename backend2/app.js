@@ -13,10 +13,8 @@ const getRandomInt = (min, max) => {
 
 // Route to handle POST requests at /sales/extras
 app.post('/sales/extras', (req, res) => {
-  const traceparentHeader = req.headers['traceparent'];
 
   console.log('Received request at /sales/extras');
-  console.log("traceparent header from backend1: " + traceparentHeader);
 
   // Simulate 1.5% chance of returning an error (400 or 500)
   const errorChance = getRandomInt(1, 10000); // 1.5% chance

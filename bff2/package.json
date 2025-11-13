@@ -1,7 +1,7 @@
 {
   "name": "bff2",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,14 +11,13 @@
   "description": "",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.66.0",
-    "@opentelemetry/exporter-metrics-otlp-proto": "^0.207.0",
-    "@opentelemetry/exporter-trace-otlp-proto": "^0.207.0",
+    "@opentelemetry/sdk-node": "^0.208.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.67.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.208.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.208.0",
     "@opentelemetry/sdk-metrics": "^2.2.0",
-    "@opentelemetry/sdk-node": "^0.207.0",
     "@opentelemetry/sdk-trace-node": "^2.2.0",
-    "axios": "^1.7.2",
-    "express": "^4.19.2",
-    "traceparent": "^1.0.0"
+    "axios": "^1.13.2",
+    "express": "^5.1.0"
   }
 }

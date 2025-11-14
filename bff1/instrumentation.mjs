@@ -3,16 +3,22 @@ import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentation
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
-import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { resourceFromAttributes } from '@opentelemetry/resources';
+import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION} from '@opentelemetry/semantic-conventions';
+// import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 
 // Enable diagnostic logging
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
+// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 // Set otlp endpoints
-const otlpTracesEndpoint = process.env.OTLP_TRACES_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/traces';
-const otlpMetricsEndpoint = process.env.OTLP_METRICS_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/metrics';
+const otlpTracesEndpoint = process.env.OTLP_TRACES_ENDPOINT
+const otlpMetricsEndpoint = process.env.OTLP_METRICS_ENDPOINT
 
 const sdk = new NodeSDK({
+  resource: resourceFromAttributes({
+    [ATTR_SERVICE_NAME]: process.env.OTEL_SERVICE_NAME,
+    [ATTR_SERVICE_VERSION]: process.env.OTEL_SERVICE_VERSION,
+  }),
   traceExporter: new OTLPTraceExporter({
     url: otlpTracesEndpoint,
     headers: {},

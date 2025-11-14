@@ -15,7 +15,7 @@ const getRandomInt = (min, max) => {
 
 // Endpoint /data/car/:carID
 app.get('/data/car/:carID', (req, res) => {
-  console.log('Received request at /data/car/carID');
+  // console.log('Received request at /data/car/carID');
 
   // Simulate 2% chance of returning a 404 error
   const errorChance = getRandomInt(1, 100);
@@ -30,7 +30,7 @@ app.get('/data/car/:carID', (req, res) => {
 // Endpoint /data/car/:carID/extras/:extraID
 app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
 
-  console.log('Received request at /data/car/carID/extras/extraID');
+  // console.log('Received request at /data/car/carID/extras/extraID');
 
   // Simulate 5% chance of returning a 402 or 401 error
   const errorChance = getRandomInt(1, 200);
@@ -49,11 +49,11 @@ app.get('/data/car/:carID/extras/:extraID', async (req, res) => {
     const response = await axios.post(`${baseUrl}/sales/extras`, postData);
 
     // Forward the response from backend2.com to the client
-    console.log(`backend2 response: `, JSON.stringify(response.headers));
+    // console.log(`backend2 response: `, JSON.stringify(response.headers));
     res.status(response.status).send(response.data);
   } catch (error) {
     // Handle any errors that occur during the request
-    console.log(`backend2 error`, error);
+    // console.log(`backend2 error`, error);
     res.status(error.response ? error.response.status : 500).send(error.message);
   }
 });

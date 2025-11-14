@@ -14,14 +14,14 @@ const getRandomInt = (min, max) => {
 // Route to handle POST requests at /sales/extras
 app.post('/sales/extras', (req, res) => {
 
-  console.log('Received request at /sales/extras');
+  // console.log('Received request at /sales/extras');
 
   // Simulate 1.5% chance of returning an error (400 or 500)
   const errorChance = getRandomInt(1, 10000); // 1.5% chance
   if (errorChance <= 150) {
     const errorTypes = [400, 500];
     const errorType = errorTypes[getRandomInt(0, errorTypes.length - 1)];
-    console.log('returned error');
+    // console.log('returned error');
     return res.status(errorType).send(`Simulated ${errorType} error`);
   }
 

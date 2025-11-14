@@ -14,7 +14,7 @@ const getCar = async () => {
     const response = await axios.get(`${baseUrl}/car/${carID}`);
 
     // Log successful response headers
-    console.log(`bff1 response headers: `, JSON.stringify(response.headers));
+    // console.log(`bff1 response headers: `, JSON.stringify(response.headers));
   } catch (error) {
     // Log error response
     console.error(`bff1 error: `, error.message);
@@ -34,10 +34,10 @@ const postExtras = async () => {
     const response = await axios.post(`${baseUrl}/car/${carID}/extras/${extraID}`, postData);
     
     // Log successful response
-    console.log(`bff2 response: `, JSON.stringify(response.headers));
+    // console.log(`bff2 response: `, JSON.stringify(response.headers));
   } catch (error) {
     // Log error response
-    console.error(`bff2 error: `, error.message);
+    // console.error(`bff2 error: `, error.message);
   }
 };
 

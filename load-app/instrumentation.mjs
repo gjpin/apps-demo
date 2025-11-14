@@ -3,6 +3,10 @@ import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentation
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
+import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+
+// Enable diagnostic logging
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 // Set otlp endpoints
 const otlpTracesEndpoint = process.env.OTLP_TRACES_ENDPOINT || 'http://k8s-monitoring-alloy-receiver.k8s-monitoring.svc.cluster.local:4318/v1/traces';

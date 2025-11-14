@@ -17,7 +17,7 @@ const getRandomInt = (min, max) => {
 const forwardRequest = async (req, res) => {
   const { carID, extraID } = req.params;
 
-  console.log('Received request at /car/carID/extras/extraID');
+  // console.log('Received request at /car/carID/extras/extraID');
 
   // Simulate 1% chance of receiving an error
   const errorChance = getRandomInt(1, 100);
@@ -32,11 +32,11 @@ const forwardRequest = async (req, res) => {
     const response = await axios.get(`${baseUrl}/data/car/${carID}/extras/${extraID}`);
 
     // Forward the response from backend1.com to the client
-    console.log(`backend1 response: `, JSON.stringify(response.headers));
+    // console.log(`backend1 response: `, JSON.stringify(response.headers));
     res.status(response.status).send(response.data);
   } catch (error) {
     // Handle any errors that occur during the request
-    console.log(`backend1 error`, error);
+    // console.log(`backend1 error`, error);
     res.status(error.response ? error.response.status : 500).send(error.message);
   }
 };

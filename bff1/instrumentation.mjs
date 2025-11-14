@@ -19,13 +19,13 @@ const sdk = new NodeSDK({
     url: process.env.OTLP_TRACES_ENDPOINT,
     headers: {},
   }),
-  metricReader: new PeriodicExportingMetricReader({
+  metricReaders: [new PeriodicExportingMetricReader({
     exporter: new OTLPMetricExporter({
       url: process.env.OTLP_METRICS_ENDPOINT,
       headers: {},
       concurrencyLimit: 1,
     }),
-  }),
+  })],
   instrumentations: [getNodeAutoInstrumentations()],
 });
 

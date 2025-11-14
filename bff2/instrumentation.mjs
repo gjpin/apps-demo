@@ -8,7 +8,7 @@ import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION} from '@opentelemetry/semantic-
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 
 // DEBUG: print SDK logs to stdout
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
+// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 const sdk = new NodeSDK({
   resource: resourceFromAttributes({
@@ -17,20 +17,18 @@ const sdk = new NodeSDK({
   }),
   traceExporter: new OTLPTraceExporter({
     url: process.env.OTLP_TRACES_ENDPOINT,
-    headers: {},
   }),
   metricReaders: [
     new PeriodicExportingMetricReader({
       exporter: new OTLPMetricExporter({
         url: process.env.OTLP_METRICS_ENDPOINT,
-        headers: {},
         concurrencyLimit: 1,
       }),
     }),
     // DEBUG: print metrics to stdout
-    new PeriodicExportingMetricReader({
-      exporter: new ConsoleMetricExporter(),
-    }),
+    // new PeriodicExportingMetricReader({
+    //   exporter: new ConsoleMetricExporter(),
+    // }),
   ],
   instrumentations: [getNodeAutoInstrumentations()],
 });

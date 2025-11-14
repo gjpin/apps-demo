@@ -5,11 +5,11 @@
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-load-app:53.0 ./load-app
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff1:53.0 ./bff1
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff2:53.0 ./bff2
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend1:53.0 ./backend1
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend2:53.0 ./backend2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-load-app:54.0 ./load-app
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff1:54.0 ./bff1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff2:54.0 ./bff2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend1:54.0 ./backend1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend2:54.0 ./backend2
 ```
 **Note:** If you have issues during buildx run the following command to check if you have installed multi platform support for buildx:
 ```
@@ -17,11 +17,11 @@ docker run --privileged --rm tonistiigi/binfmt --install all
 ```
 4. Push images:
 ```
-docker push ghcr.io/gjpin/demo-apps-load-app:53.0
-docker push ghcr.io/gjpin/demo-apps-bff1:53.0
-docker push ghcr.io/gjpin/demo-apps-bff2:53.0
-docker push ghcr.io/gjpin/demo-apps-backend1:53.0
-docker push ghcr.io/gjpin/demo-apps-backend2:53.0
+docker push ghcr.io/gjpin/demo-apps-load-app:54.0
+docker push ghcr.io/gjpin/demo-apps-bff1:54.0
+docker push ghcr.io/gjpin/demo-apps-bff2:54.0
+docker push ghcr.io/gjpin/demo-apps-backend1:54.0
+docker push ghcr.io/gjpin/demo-apps-backend2:54.0
 ```
 
 ## Podman
@@ -30,19 +30,19 @@ docker push ghcr.io/gjpin/demo-apps-backend2:53.0
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-load-app:53.0 ./load-app
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff1:53.0 ./bff1
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff2:53.0 ./bff2
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend1:53.0 ./backend1
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend2:53.0 ./backend2
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-load-app:54.0 ./load-app
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff1:54.0 ./bff1
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff2:54.0 ./bff2
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend1:54.0 ./backend1
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend2:54.0 ./backend2
 ```
 4. Push images:
 ```
-podman push ghcr.io/gjpin/demo-apps-load-app:53.0
-podman push ghcr.io/gjpin/demo-apps-bff1:53.0
-podman push ghcr.io/gjpin/demo-apps-bff2:53.0
-podman push ghcr.io/gjpin/demo-apps-backend1:53.0
-podman push ghcr.io/gjpin/demo-apps-backend2:53.0
+podman push ghcr.io/gjpin/demo-apps-load-app:54.0
+podman push ghcr.io/gjpin/demo-apps-bff1:54.0
+podman push ghcr.io/gjpin/demo-apps-bff2:54.0
+podman push ghcr.io/gjpin/demo-apps-backend1:54.0
+podman push ghcr.io/gjpin/demo-apps-backend2:54.0
 ```
 
 # Microservices

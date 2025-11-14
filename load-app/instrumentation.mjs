@@ -5,10 +5,10 @@ import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION} from '@opentelemetry/semantic-conventions';
-// import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 
 // Enable diagnostic logging
-// diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 const sdk = new NodeSDK({
   resource: resourceFromAttributes({
@@ -17,10 +17,12 @@ const sdk = new NodeSDK({
   }),
   traceExporter: new OTLPTraceExporter({
     url: process.env.OTLP_TRACES_ENDPOINT,
+    headers: {},
   }),
   metricReader: new PeriodicExportingMetricReader({
     exporter: new OTLPMetricExporter({
       url: process.env.OTLP_METRICS_ENDPOINT,
+      headers: {},
       concurrencyLimit: 1,
     }),
   }),

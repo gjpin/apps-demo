@@ -1,27 +1,36 @@
 # Build and push
 ## Docker
 1. Create Github [Personal Access Token](https://github.com/settings/tokens/new)
-  - Give read/write/delete package permissions
+   - Give read/write/delete package permissions
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-load-app:57.0 ./load-app
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff1:57.0 ./bff1
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-bff2:57.0 ./bff2
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend1:57.0 ./backend1
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/demo-apps-backend2:57.0 ./backend2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/load-app-sdk:1.0 ./sdk/load-app
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff1-sdk:1.0 ./sdk/bff1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff2-sdk:1.0 ./sdk/bff2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend1-sdk:1.0 ./sdk/backend1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend2-sdk:1.0 ./sdk/backend2
+
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/load-app-operator:1.0 ./operator/load-app
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff1-operator:1.0 ./operator/bff1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff2-operator:1.0 ./operator/bff2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend1-operator:1.0 ./operator/backend1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend2-operator:1.0 ./operator/backend2
 ```
-**Note:** If you have issues during buildx run the following command to check if you have installed multi platform support for buildx:
-```
-docker run --privileged --rm tonistiigi/binfmt --install all
-```
+
 4. Push images:
 ```
-docker push ghcr.io/gjpin/demo-apps-load-app:57.0
-docker push ghcr.io/gjpin/demo-apps-bff1:57.0
-docker push ghcr.io/gjpin/demo-apps-bff2:57.0
-docker push ghcr.io/gjpin/demo-apps-backend1:57.0
-docker push ghcr.io/gjpin/demo-apps-backend2:57.0
+docker push ghcr.io/gjpin/load-app-sdk:1.0
+docker push ghcr.io/gjpin/bff1-sdk:1.0
+docker push ghcr.io/gjpin/bff2-sdk:1.0
+docker push ghcr.io/gjpin/backend1-sdk:1.0
+docker push ghcr.io/gjpin/backend2-sdk:1.0
+
+docker push ghcr.io/gjpin/load-app-operator:1.0
+docker push ghcr.io/gjpin/bff1-operator:1.0
+docker push ghcr.io/gjpin/bff2-operator:1.0
+docker push ghcr.io/gjpin/backend1-operator:1.0
+docker push ghcr.io/gjpin/backend2-operator:1.0
 ```
 
 ## Podman
@@ -30,19 +39,19 @@ docker push ghcr.io/gjpin/demo-apps-backend2:57.0
 2. Login to registry: `docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN`
 3. Build images:
 ```
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-load-app:57.0 ./load-app
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff1:57.0 ./bff1
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff2:57.0 ./bff2
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend1:57.0 ./backend1
-podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend2:57.0 ./backend2
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-load-app:1.0 ./load-app
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff1:1.0 ./bff1
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-bff2:1.0 ./bff2
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend1:1.0 ./backend1
+podman build --no-cache --tag=ghcr.io/gjpin/demo-apps-backend2:1.0 ./backend2
 ```
 4. Push images:
 ```
-podman push ghcr.io/gjpin/demo-apps-load-app:57.0
-podman push ghcr.io/gjpin/demo-apps-bff1:57.0
-podman push ghcr.io/gjpin/demo-apps-bff2:57.0
-podman push ghcr.io/gjpin/demo-apps-backend1:57.0
-podman push ghcr.io/gjpin/demo-apps-backend2:57.0
+podman push ghcr.io/gjpin/demo-apps-load-app:1.0
+podman push ghcr.io/gjpin/demo-apps-bff1:1.0
+podman push ghcr.io/gjpin/demo-apps-bff2:1.0
+podman push ghcr.io/gjpin/demo-apps-backend1:1.0
+podman push ghcr.io/gjpin/demo-apps-backend2:1.0
 ```
 
 # Microservices

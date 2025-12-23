@@ -1,5 +1,5 @@
 # Set number of concurrent connections
-kubectl set env deployment/k6-load-test -n load-testing K6_VUS=1000
+kubectl set env deployment/k6-load-test -n load-testing K6_VUS=50
 
 # Set test duration
 kubectl set env deployment/k6-load-test -n load-testing K6_DURATION=60m

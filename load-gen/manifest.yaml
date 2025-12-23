@@ -1,0 +1,80 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: load-testing
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-script
+  namespace: load-testing
+data:
+  test.js: |
+    import http from 'k6/http';
+    import { sleep } from 'k6';
+
+    export const options = {
+      vus: Number(__ENV.K6_VUS || 10),
+      duration: __ENV.K6_DURATION || '1m',
+      noConnectionReuse: false,
+    };
+
+    function randomId() {
+      return Math.floor(Math.random() * 1_000_000) + 1;
+    }
+
+    export default function () {
+      const carID = randomId();
+      const extraID = randomId();
+
+      http.get(`http://bff1.demo-apps.svc.cluster.local:8080/car/${carID}`);
+
+      http.post(
+        `http://bff2.demo-apps.svc.cluster.local:8080/car/${carID}/extras/${extraID}`,
+        JSON.stringify({}),
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      sleep(1);
+    }
+---
+# https://grafana.com/docs/k6/latest/results-output/real-time/opentelemetry/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k6-load-test
+  namespace: load-testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k6
+  template:
+    metadata:
+      labels:
+        app: k6
+    spec:
+      containers:
+        - name: k6
+          image: grafana/k6:latest
+          command: ["k6", "run", "-o", "opentelemetry", "/scripts/test.js"]
+          env:
+            - name: K6_VUS
+              value: "50" # Number of concurrent connections
+            - name: K6_DURATION
+              value: "5m" # Test duration
+            - name: K6_OTEL_TLS_INSECURE_SKIP_VERIFY
+              value: "true"
+            - name: K6_OTEL_EXPORTER_TYPE
+              value: "http"
+            - name: K6_OTEL_HTTP_EXPORTER_ENDPOINT
+              value: "" # replace me
+          volumeMounts:
+            - name: k6-script
+              mountPath: /scripts
+      volumes:
+        - name: k6-script
+          configMap:
+            name: k6-script
+---

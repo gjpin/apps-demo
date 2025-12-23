@@ -1,0 +1,148 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ab
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ab-loop-script
+  namespace: ab
+data:
+  entrypoint.sh: |
+    #!/usr/bin/env sh
+    set -eu
+
+    # --- Defaults (can be overridden by env vars) ---
+    : "${AB_GET_REQUESTS:=2000}"
+    : "${AB_GET_CONCURRENCY:=1000}"
+    : "${AB_POST_REQUESTS:=2000}"
+    : "${AB_POST_CONCURRENCY:=1000}"
+    : "${AB_TIMEOUT:=30}"          # ApacheBench timeout in seconds (-s)
+    : "${SLEEP_BETWEEN:=1}"        # Small pause between cycles
+
+    # Optional: override POST body JSON via env var
+    : "${POST_JSON:={\"foo\":\"bar\"}}"
+
+    # --- Fixed target URLs (as requested) ---
+    GET_URL="http://bff1.demo-apps.svc.cluster.local:8080/car/256"
+    POST_URL="http://bff2.demo-apps.svc.cluster.local:8080/car/512/extras/1024"
+
+    echo "[INFO] GET : -n=${AB_GET_REQUESTS} -c=${AB_GET_CONCURRENCY} url=${GET_URL}"
+    echo "[INFO] POST: -n=${AB_POST_REQUESTS} -c=${AB_POST_CONCURRENCY} url=${POST_URL}"
+
+    # Create the POST body file expected by ab (-p /tmp/post.json)
+    printf '%s\n' "${POST_JSON}" > /tmp/post.json
+
+    while true; do
+      cycle_start="$(date -Iseconds 2>/dev/null || date)"
+      echo "=================="
+      echo "[INFO] Cycle start: ${cycle_start}"
+
+      # Run GET in background
+      (
+        echo "[INFO] GET started"
+        ab -n "${AB_GET_REQUESTS}" -c "${AB_GET_CONCURRENCY}" -s "${AB_TIMEOUT}" \
+          "${GET_URL}"
+        echo "[INFO] GET finished (rc=$?)"
+      ) &
+      PID_GET="$!"
+
+      # Run POST in background
+      (
+        echo "[INFO] POST started"
+        ab -n "${AB_POST_REQUESTS}" -c "${AB_POST_CONCURRENCY}" \
+          -s "${AB_TIMEOUT}" \
+          -p /tmp/post.json -T "application/json" \
+          "${POST_URL}"
+        echo "[INFO] POST finished (rc=$?)"
+      ) &
+      PID_POST="$!"
+
+      # Wait until BOTH commands finish, then start the next cycle
+      wait "${PID_GET}"
+      RC_GET="$?"
+      wait "${PID_POST}"
+      RC_POST="$?"
+
+      cycle_end="$(date -Iseconds 2>/dev/null || date)"
+      echo "[INFO] Cycle end: ${cycle_end} | GET rc=${RC_GET} | POST rc=${RC_POST}"
+
+      sleep "${SLEEP_BETWEEN}"
+    done
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ab
+  namespace: ab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ab
+  template:
+    metadata:
+      labels:
+        app: ab
+    spec:
+      initContainers:
+        - name: prepare-script
+          image: alpine:3.23
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              cp /cm/entrypoint.sh /work/entrypoint.sh
+              chmod +x /work/entrypoint.sh
+          volumeMounts:
+            - name: script-cm
+              mountPath: /cm
+              readOnly: true
+            - name: script-work
+              mountPath: /work
+      containers:
+        - name: ab
+          image: alpine:3.23
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              # Install ApacheBench (ab) at container start
+              apk add --no-cache apache2-utils tzdata >/dev/null
+              # Run the copied script from the writeable emptyDir volume
+              exec /work/entrypoint.sh
+          env:
+            - name: AB_GET_REQUESTS
+              value: "2000"
+            - name: AB_GET_CONCURRENCY
+              value: "1000"
+            - name: AB_POST_REQUESTS
+              value: "2000"
+            - name: AB_POST_CONCURRENCY
+              value: "1000"
+            - name: AB_TIMEOUT
+              value: "30"
+            - name: SLEEP_BETWEEN
+              value: "1"
+          volumeMounts:
+            - name: script-work
+              mountPath: /work
+      volumes:
+        - name: script-cm
+          configMap:
+            name: ab-loop-script
+            defaultMode: 0444
+        - name: script-work
+          emptyDir: {}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/product
+                operator: In
+                values: 
+                - product

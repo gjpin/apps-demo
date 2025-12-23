@@ -69,7 +69,7 @@ spec:
             - name: K6_OTEL_EXPORTER_TYPE
               value: "http"
             - name: K6_OTEL_HTTP_EXPORTER_ENDPOINT
-              value: "" # replace me
+              value: "" # TODO: replace me
           volumeMounts:
             - name: k6-script
               mountPath: /scripts
@@ -81,4 +81,12 @@ spec:
         - name: k6-script
           configMap:
             name: k6-script
----
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/product
+                operator: In
+                values: 
+                - product

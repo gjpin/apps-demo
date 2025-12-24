@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Context } from 'hono'
+import { serve } from '@hono/node-server'
 
 const app = new Hono()
 
@@ -94,9 +95,9 @@ app.get('/healthz', (c: Context) => {
   return c.json({ status: 'ok', service: 'backend1' })
 })
 
-console.log(`Server running on port ${PORT}`)
+console.log(`Starting server on port ${PORT}`)
 
-export default {
-  port: PORT,
+serve({
   fetch: app.fetch,
-}
+  port: PORT,
+})

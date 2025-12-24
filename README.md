@@ -11,11 +11,11 @@ docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff2-s
 docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend1-sdk:1.0 ./sdk/backend1
 docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend2-sdk:1.0 ./sdk/backend2
 
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/load-app:2.0 ./base/load-app
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff1:2.0 ./base/bff1
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff2:2.0 ./base/bff2
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend1:2.0 ./base/backend1
-docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend2:2.0 ./base/backend2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/load-app:2.1 ./base/load-app
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff1:2.1 ./base/bff1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/bff2:2.1 ./base/bff2
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend1:2.1 ./base/backend1
+docker buildx build --no-cache --platform=linux/arm64 --tag=ghcr.io/gjpin/backend2:2.1 ./base/backend2
 ```
 
 4. Push images:
@@ -26,11 +26,11 @@ docker push ghcr.io/gjpin/bff2-sdk:1.0
 docker push ghcr.io/gjpin/backend1-sdk:1.0
 docker push ghcr.io/gjpin/backend2-sdk:1.0
 
-docker push ghcr.io/gjpin/load-app:2.0
-docker push ghcr.io/gjpin/bff1:2.0
-docker push ghcr.io/gjpin/bff2:2.0
-docker push ghcr.io/gjpin/backend1:2.0
-docker push ghcr.io/gjpin/backend2:2.0
+docker push ghcr.io/gjpin/load-app:2.1
+docker push ghcr.io/gjpin/bff1:2.1
+docker push ghcr.io/gjpin/bff2:2.1
+docker push ghcr.io/gjpin/backend1:2.1
+docker push ghcr.io/gjpin/backend2:2.1
 ```
 
 ## Podman

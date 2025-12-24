@@ -1,3 +1,5 @@
+import { serve } from '@hono/node-server'
+
 const {
   GET_BASE_URL = 'http://bff1.demo-apps.svc.cluster.local:8080',
   POST_BASE_URL = 'http://bff2.demo-apps.svc.cluster.local:8080',
@@ -98,8 +100,9 @@ setInterval(() => {
 }, 10000)
 
 /* ---------- health endpoint ---------- */
-export default {
-  port: Number(PORT),
+console.log(`Starting load-app server on port ${PORT}`)
+
+serve({
   fetch(req: Request) {
     const url = new URL(req.url)
     
@@ -121,4 +124,5 @@ export default {
     
     return new Response('Not Found', { status: 404 })
   },
-}
+  port: Number(PORT),
+})
